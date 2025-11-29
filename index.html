@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <title>Golden Ratio Analyzer</title>
+
+  <link rel="stylesheet" href="style.css"/>
+
+  <!-- MediaPipe -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="bg-anim"></div>
+
+  <main class="wrap">
+    <header class="head">
+      <h1>Golden Ratio Analyzer</h1>
+
+      <!-- ⭐ NEW Elegant Description (3 lines) -->
+      <p class="tag">
+        Every beautiful face carries a touch of mathematical magic.<br>
+        This tool gently uncovers your natural symmetry — with accuracy, warmth, and charm.<br>
+        Upload a photo, explore the golden glow, and enjoy the compliments along the way.
+      </p>
+    </header>
+
+    <!-- Upload Section -->
+    <section class="card upload">
+      <label class="upload-btn" for="upload">📸 Upload your photo</label>
+      <input id="upload" type="file" accept="image/*"/>
+
+      <div class="viewer" id="viewer">
+        <div class="canvas-wrap">
+          <img id="photo"/>
+          <canvas id="overlay"></canvas>
+          <img id="crown" src="crown.png"/>
+          <div id="analyzing" class="analyzing hidden">
+            <div class="spinner"></div>
+            <div class="analyzing-text">Analyzing…</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="card results hidden" id="results">
+      <div class="result-left">
+        <div class="score-pill">
+          <div id="score" class="score-text">—</div>
+          <div class="score-sub">Golden Score</div>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <div class="actions">
+          <button id="new-line" class="btn">New Compliment ✨</button>
+          <button id="share-card" class="btn gold">Generate Share Card 🖼️</button>
+          <button id="download" class="btn ghost">Save Image 📥</button>
+        </div>
+
+        <p class="privacy">Your photo never leaves your device. Nothing is stored or uploaded.</p>
+      </div>
+
+      <div class="result-right">
+        <div class="breakdown">
+          <h3>How the score is calculated</h3>
+          <p class="muted">
+            Several facial ratios are compared to φ (1.618).  
+            Each ratio gets a closeness score, and the average becomes your Golden Score.
+          </p>
+
+          <table id="ratios-table">
+            <thead>
+              <tr><th>Ratio</th><th>Value</th><th>Closeness</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+
+          <div class="explain">
+            <strong>Formula:</strong>
+            <div class="muted">closeness = 1 − |ratio − φ| ÷ (φ × tolerance)</div>
+            <div class="muted">final score = avg(closeness) × 100%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
